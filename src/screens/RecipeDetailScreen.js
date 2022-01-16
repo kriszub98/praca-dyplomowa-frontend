@@ -55,21 +55,6 @@ const RecipeDetailScreen = () => {
 			</View>
 		</ScrollView>
 	);
-
-	return (
-		<ScrollView>
-			<Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
-			<View style={styles.details}>
-				<DefaultText>{selectedMeal.duration}</DefaultText>
-				<DefaultText>{selectedMeal.complexity}</DefaultText>
-				<DefaultText>{selectedMeal.affordability}</DefaultText>
-			</View>
-			<Text style={styles.title}>Ingredients</Text>
-			{selectedMeal.ingredients.map((ingredient) => <ListItem key={ingredient}>{ingredient}</ListItem>)}
-			<Text style={styles.title}>Steps</Text>
-			{selectedMeal.steps.map((step) => <ListItem key={step}>{step}</ListItem>)}
-		</ScrollView>
-	);
 };
 
 export default RecipeDetailScreen;
