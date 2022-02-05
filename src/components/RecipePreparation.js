@@ -15,7 +15,7 @@ const RecipePreparation = ({ steps }) => {
 	let stepList = steps.map((step) => <ListItem key={step.id}>{step.title}</ListItem>);
 	return (
 		<View style={styles.container}>
-			<TitleText style={styles.title}>Products</TitleText>
+			<TitleText style={styles.title}>Preparation steps</TitleText>
 			{stepList}
 		</View>
 	);
@@ -31,9 +31,7 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	listItem: {
-		marginVertical: 10,
-		borderColor: '#ccc',
-		borderWidth: 1,
+		marginVertical: 15,
 		padding: 10
 	}
 });

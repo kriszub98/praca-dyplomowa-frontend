@@ -1,97 +1,57 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View, TouchableNativeFeedback, TouchableOpacity } from 'react-native';
 import DefaultText from '../components/DefaultText';
 import TitleText from '../components/TitleText';
+import RECIPES from '../data/DUMMY';
 
-const RECIPES = [
-	{
-		id: 1,
-		author: {
-			name: 'Jan Kowalski'
-		},
-		imageurl:
-			'https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80',
-		title: 'Toast with blueberry',
-		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-		products: [
-			{
-				id: 1,
-				title: 'Toast',
-				quantity: '1 sztuk'
-			},
-			{
-				id: 2,
-				title: 'Raspberry',
-				quantity: '1 sztuk'
-			}
-		],
-		steps: [
-			{ id: 1, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
-			{ id: 2, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
-			{ id: 3, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' }
-		]
-	},
-	{
-		id: 2,
-		author: {
-			name: 'Jan Kowalski'
-		},
-		imageurl:
-			'https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=749&q=80',
-		title: 'Toast with blueberry',
-		description:
-			"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-		products: [
-			{
-				id: 1,
-				title: 'Toast',
-				quantity: '1 sztuk'
-			},
-			{
-				id: 2,
-				title: 'Raspberry',
-				quantity: '1 sztuk'
-			}
-		],
-		steps: [
-			{ id: 1, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
-			{ id: 2, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
-			{ id: 3, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' }
-		]
-	}
-];
-
-const ListItem = (recipe) => (
-	<View style={styles.recipeContainer}>
-		<Image source={recipe.imageurl} style={styles.recipeImage} />
-		<TitleText>{recipe.title}</TitleText>
-		<DefaultText>{recipe.author.name}</DefaultText>
+const Recipe = ({ recipe }) => (
+	<View style={recipeStyle.recipe}>
+		<TouchableNativeFeedback useForeground={true}>
+			<View>
+				<Image
+					source={{
+						uri: recipe.imageurl
+					}}
+					style={recipeStyle.recipeImage}
+				/>
+				<View style={recipeStyle.recipeContent}>
+					<TitleText>{recipe.title}</TitleText>
+					<DefaultText>TEST</DefaultText>
+				</View>
+			</View>
+		</TouchableNativeFeedback>
 	</View>
 );
 
 const RecipeListScreen = () => {
-	return <ScrollView>{RECIPES.map((recipe) => <ListItem recipe={recipe} />)}</ScrollView>;
+	return <ScrollView>{RECIPES.map((recipe) => <Recipe key={recipe.id} recipe={recipe} />)}</ScrollView>;
 };
 
 export default RecipeListScreen;
 
-const styles = StyleSheet.create({
-	title: {
-		paddingVertical: 10,
-		fontSize: 32
+const recipeStyle = StyleSheet.create({
+	recipe: {
+		borderRadius: 6,
+		elevation: 3,
+		backgroundColor: '#fff',
+		shadowOffset: {
+			width: 1,
+			height: 1
+		},
+		shadowColor: '#333',
+		shadowOpacity: 0.3,
+		shadowRadius: 2,
+		marginHorizontal: 6,
+		marginVertical: 6,
+		overflow: 'hidden'
 	},
-	description: {
-		paddingVertical: 15
-	},
-	container: {
-		paddingHorizontal: 10
-	},
-	recipeContainer: {
-		paddingVertical: 10
+	recipeContent: {
+		marginHorizontal: 14,
+		marginVertical: 12
 	},
 	recipeImage: {
 		width: '100%',
-		height: 200
+		height: 200,
+		resizeMode: 'cover'
 	}
 });
