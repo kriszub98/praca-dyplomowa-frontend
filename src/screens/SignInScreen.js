@@ -12,14 +12,13 @@ const SignInScreen = () => {
 	const [ username, setUsername ] = useState('');
 	const [ password, setPassword ] = useState('');
 
-	// const { height } = useWindowDimensions();
-	// const navigation = useNavigation();
+	const navigation = useNavigation();
 
 	const onSignInPressed = () => {
 		// TODO: Logowanie, a potem redirect do home
 	};
 	const onSignUpPressed = () => {
-		// TODO:  navigation.navigate('SignUp');
+		navigation.navigate('SignUp');
 	};
 
 	return (

@@ -1,6 +1,6 @@
 import { StyleSheet, View, ScrollView, Switch, Text } from 'react-native';
 import React, { useState } from 'react';
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
@@ -16,14 +16,14 @@ const SignUpScreen = () => {
 	const [ pwz, setPwz ] = useState(''); // TODO: 7 cyfr
 	const [ isDoctor, setIsDoctor ] = useState(false);
 
-	// const navigation = useNavigation();
+	const navigation = useNavigation();
 
 	const onRegisterPressed = () => {
 		// TODO: Rejestracja i Go to Choose Allergies
 	};
 
 	const onSignInPressed = () => {
-		// TODO: navigation.navigate('SignIn');
+		navigation.navigate('SignIn');
 	};
 
 	const toggleSwitch = () => {
