@@ -16,6 +16,7 @@ const SignInScreen = () => {
 
 	const onSignInPressed = () => {
 		// TODO: Logowanie, a potem redirect do home
+		navigation.navigate('RecipeList');
 	};
 	const onSignUpPressed = () => {
 		navigation.navigate('SignUp');

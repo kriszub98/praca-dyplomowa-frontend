@@ -15,7 +15,7 @@ const RecipePreparation = ({ steps }) => {
 	let stepList = steps.map((step) => <ListItem key={step.id}>{step.title}</ListItem>);
 	return (
 		<View style={styles.container}>
-			<TitleText style={styles.title}>Preparation steps</TitleText>
+			<TitleText style={styles.title}>Przygotowanie</TitleText>
 			{stepList}
 		</View>
 	);

@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
 		fontSize: 32
 	},
 	description: {
-		paddingVertical: 15
+		paddingVertical: 15,
+		lineHeight: 20
 	},
 	container: {
 		paddingHorizontal: 10
