@@ -6,6 +6,7 @@ export default {
 
 	// RecipeDetail
 	recipeIngridientBackground: 'hsl(200, 40%, 90%)',
+	recipePreparationBackground: 'hsl(200, 40%, 90%)',
 
 	// Fonts
 	primaryTitle: '#051C60',
