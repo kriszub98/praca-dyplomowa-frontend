@@ -25,7 +25,9 @@ const RECIPES = [
 			{ id: 1, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
 			{ id: 2, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
 			{ id: 3, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' }
-		]
+		],
+		createdAt: '2021-02-02',
+		isValidated: true
 	},
 	{
 		id: 2,
@@ -53,7 +55,9 @@ const RECIPES = [
 			{ id: 1, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
 			{ id: 2, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
 			{ id: 3, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' }
-		]
+		],
+		createdAt: '2021-02-02',
+		isValidated: false
 	},
 	{
 		id: 3,
@@ -81,7 +85,9 @@ const RECIPES = [
 			{ id: 1, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
 			{ id: 2, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
 			{ id: 3, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' }
-		]
+		],
+		createdAt: '2021-02-02',
+		isValidated: true
 	},
 	{
 		id: 4,
@@ -109,7 +115,9 @@ const RECIPES = [
 			{ id: 1, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
 			{ id: 2, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' },
 			{ id: 3, title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry' }
-		]
+		],
+		createdAt: '2021-02-03',
+		isValidated: true
 	}
 ];
 
