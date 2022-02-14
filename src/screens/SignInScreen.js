@@ -1,16 +1,17 @@
-import { StyleSheet, View, Image, useWindowDimensions, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
+import CustomDimensions from '../constans/Dimensions';
+import CustomColors from '../constans/Colors';
+import useInput from '../hooks/useInput';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import TitleText from '../components/TitleText';
-import CustomDimensions from '../constans/Dimensions';
-import CustomColors from '../constans/Colors';
 
 const SignInScreen = () => {
-	const [ username, setUsername ] = useState('');
-	const [ password, setPassword ] = useState('');
+	const [ username, bindUsername, resetUsername ] = useInput('');
+	const [ password, bindPassword, resetPassword ] = useInput('');
 
 	const navigation = useNavigation();
 
@@ -27,8 +28,8 @@ const SignInScreen = () => {
 			<View style={styles.root}>
 				<TitleText style={styles.title}>Zaloguj się</TitleText>
 
-				<CustomInput placeholder="Login" value={username} setValue={setUsername} />
-				<CustomInput placeholder="Hasło" value={password} setValue={setPassword} secureTextEntry />
+				<CustomInput placeholder="Login" {...bindUsername} />
+				<CustomInput placeholder="Hasło" {...bindPassword} secureTextEntry />
 
 				<CustomButton onPress={onSignInPressed} text="Zaloguj się" />
 				<CustomButton onPress={onSignUpPressed} text="Utwórz konto" type="TERTIARY" />

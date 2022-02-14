@@ -11,5 +11,6 @@ export default {
 	// Fonts
 	primaryTitle: '#051C60',
 	secondaryText: 'gray',
-	validatedText: 'green'
+	validatedText: 'green',
+	errorText: 'red'
 };
