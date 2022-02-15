@@ -10,7 +10,7 @@ const useAllergies = () => {
 			const results = await allergyBackend.get('/allergies');
 			setAllergies(results.data);
 		} catch (error) {
-			console.error(error);
+			return setErrorMessage(error.response.data.error);
 		}
 	};
 

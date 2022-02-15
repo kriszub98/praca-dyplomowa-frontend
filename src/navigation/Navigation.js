@@ -7,6 +7,7 @@ import ProductAddScreen from '../screens/ProductAddScreen';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import FiltersScreen from '../screens/FiltersScreen';
+import ProductListScreen from '../screens/ProductListScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
 import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import RecipeListScreen from '../screens/RecipeListScreen';
@@ -23,6 +24,7 @@ const Navigation = () => {
 				<Stack.Screen name="SignUp" component={SignUpScreen} />
 				<Stack.Screen name="RecipeList" component={RecipeListScreen} />
 				<Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
+				<Stack.Screen name="ProductList" component={ProductListScreen} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

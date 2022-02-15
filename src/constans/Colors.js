@@ -8,6 +8,9 @@ export default {
 	recipeIngridientBackground: 'hsl(200, 40%, 90%)',
 	recipePreparationBackground: 'hsl(200, 40%, 90%)',
 
+	// AddProduct
+	allergyPressed: 'hsl(200, 40%, 90%)',
+
 	// Fonts
 	primaryTitle: '#051C60',
 	secondaryText: 'gray',

@@ -1,5 +1,6 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import useAllergies from '../hooks/useAllergies';
 import useInput from '../hooks/useInput';
@@ -13,12 +14,12 @@ const AllergyAddScreen = () => {
 	const [ name, bindName, resetName ] = useInput('');
 	const { addAllergy, errorMessage } = useAllergies();
 
-	// const navigation = useNavigation();
+	const navigation = useNavigation();
 
 	const onSubmitPressed = () => {
 		addAllergy(name);
 		resetName();
-		// TODO: GO TO ALLERGIES MAYBE?! navigation.navigate('RecipeList');
+		navigation.navigate('ProductAdd');
 	};
 
 	return (
@@ -28,7 +29,7 @@ const AllergyAddScreen = () => {
 
 				{errorMessage ? <TitleText style={styles.errorMessage}>{errorMessage}</TitleText> : null}
 				<CustomInput placeholder="Nazwa produktu" {...bindName} />
-				<CustomButton onPress={onSubmitPressed} text="Dodaj produkt" />
+				<CustomButton onPress={onSubmitPressed} text="Dodaj alergie" />
 			</View>
 		</ScrollView>
 	);
