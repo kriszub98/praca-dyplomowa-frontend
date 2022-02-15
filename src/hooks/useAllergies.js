@@ -14,9 +14,9 @@ const useAllergies = () => {
 		}
 	};
 
-	const addAllergy = async (name) => {
+	const addAllergy = async (name, shortName) => {
 		try {
-			const result = await allergyBackend.post('/allergies', { name });
+			const result = await allergyBackend.post('/allergies', { name, shortName });
 			console.log(result);
 		} catch (error) {
 			return setErrorMessage(error.response.data.error);

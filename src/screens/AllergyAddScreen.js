@@ -12,13 +12,15 @@ import CustomButton from '../components/CustomButton';
 
 const AllergyAddScreen = () => {
 	const [ name, bindName, resetName ] = useInput('');
+	const [ shortName, bindShortName, resetShortName ] = useInput('');
 	const { addAllergy, errorMessage } = useAllergies();
 
 	const navigation = useNavigation();
 
 	const onSubmitPressed = () => {
-		addAllergy(name);
+		addAllergy(name, shortName);
 		resetName();
+		resetShortName();
 		navigation.navigate('ProductAdd');
 	};
 
@@ -28,7 +30,8 @@ const AllergyAddScreen = () => {
 				<TitleText style={styles.title}>Dodawanie alergii</TitleText>
 
 				{errorMessage ? <TitleText style={styles.errorMessage}>{errorMessage}</TitleText> : null}
-				<CustomInput placeholder="Nazwa produktu" {...bindName} />
+				<CustomInput placeholder="Nazwa alergii" {...bindName} />
+				<CustomInput placeholder="Skrócona nazwa alergii" {...bindShortName} />
 				<CustomButton onPress={onSubmitPressed} text="Dodaj alergie" />
 			</View>
 		</ScrollView>
