@@ -1,5 +1,6 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import useAllergies from '../hooks/useAllergies';
 import useProducts from '../hooks/useProducts';
@@ -18,11 +19,11 @@ const ProductAddScreen = () => {
 	const [ description, bindDescription, resetDescription ] = useInput('');
 	const [ chosenAllergies, setChosenAllergies ] = useState([]);
 
-	// const navigation = useNavigation();
+	const navigation = useNavigation();
 
 	const onSubmitPressed = () => {
 		// TODO: Logowanie, a potem redirect do home
-		// navigation.navigate('RecipeList');
+		navigation.navigate('ProductList');
 		addProduct(name, description, chosenAllergies);
 		resetName();
 		resetDescription();

@@ -1,14 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { ScrollView } from 'react-native';
+
+import useProducts from '../hooks/useProducts';
+import ProductCard from '../components/ProductCard';
 
 const ProductListScreen = () => {
-	return (
-		<View>
-			<Text>ProductListScreen</Text>
-		</View>
-	);
+	const { products, getProducts, errroMessage } = useProducts();
+	return <ScrollView>{products.map((product) => <ProductCard product={product} key={product._id} />)}</ScrollView>;
 };
 
 export default ProductListScreen;
-
-const styles = StyleSheet.create({});

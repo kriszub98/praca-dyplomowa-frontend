@@ -24,6 +24,7 @@ const Navigation = () => {
 				<Stack.Screen name="SignUp" component={SignUpScreen} />
 				<Stack.Screen name="RecipeList" component={RecipeListScreen} />
 				<Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
+				<Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
 				<Stack.Screen name="ProductList" component={ProductListScreen} />
 			</Stack.Navigator>
 		</NavigationContainer>
