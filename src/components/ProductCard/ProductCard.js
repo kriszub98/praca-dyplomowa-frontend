@@ -27,7 +27,7 @@ const RecipeCard = ({ product, onPress }) => {
 				</View>
 
 				<View style={styles.allergyContainer}>
-					{product.allergies.map((a) => <TitleText key={a._id}>{a.name}</TitleText>)}
+					{product.allergies.map((a) => <TitleText key={a._id}>{a.shortName}</TitleText>)}
 				</View>
 			</View>
 		</TouchableNativeFeedback>
