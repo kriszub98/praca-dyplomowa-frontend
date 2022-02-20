@@ -3,6 +3,8 @@ export default {
 	rootBackgroundColor: 'hsl(200, 33%, 98%)',
 	primaryColor: '#4a148c',
 	accentColor: '#ff6f00',
+	primaryButton: 'hsl(222, 88%, 59%)',
+	primaryButtonRipple: 'hsl(222, 88%, 70%)',
 
 	// RecipeDetail
 	recipeIngridientBackground: 'hsl(200, 40%, 90%)',

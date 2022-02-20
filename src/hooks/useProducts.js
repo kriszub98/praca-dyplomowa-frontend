@@ -14,11 +14,8 @@ const useProducts = () => {
 		}
 	};
 
-	const addProduct = async (name, description, allergies) => {
+	const addProduct = async (name, description, token, allergies) => {
 		try {
-			//TODO: użyj tego ze state
-			const token =
-				'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWZjNjIyMDA5ODA1M2JjYWVjMGUxODQiLCJpYXQiOjE2NDQ5MjIwNjF9.OcZIpedsedLgdoXy53k432fL0EkCgrgvWOhgkGhHnM8';
 			const result = await allergyBackend.post(
 				'/products',
 				{

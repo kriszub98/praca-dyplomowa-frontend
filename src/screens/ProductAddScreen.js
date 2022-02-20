@@ -1,6 +1,7 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 import useAllergies from '../hooks/useAllergies';
 import useProducts from '../hooks/useProducts';
@@ -10,9 +11,10 @@ import CustomDimensions from '../constans/Dimensions';
 import TitleText from '../components/TitleText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
-import AllergyContainer from '../components/AllergyContainer/AllergyContainer';
+import AllergyContainer from '../components/AllergyContainer';
 
 const ProductAddScreen = () => {
+	const auth = useSelector((state) => state.auth);
 	const { allergies } = useAllergies();
 	const { addProduct, errorMessage } = useProducts();
 	const [ name, bindName, resetName ] = useInput('');
@@ -22,11 +24,11 @@ const ProductAddScreen = () => {
 	const navigation = useNavigation();
 
 	const onSubmitPressed = () => {
-		// TODO: Logowanie, a potem redirect do home
-		navigation.navigate('ProductList');
-		addProduct(name, description, chosenAllergies);
+		addProduct(name, description, auth.token, chosenAllergies);
 		resetName();
 		resetDescription();
+		// TODO: Zmień redirecta
+		return navigation.navigate('ProductList');
 	};
 
 	const onAllergyPressed = (allergy) => {

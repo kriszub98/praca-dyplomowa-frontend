@@ -18,9 +18,9 @@ const Navigation = () => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
+				<Stack.Screen name="SignIn" component={SignInScreen} />
 				<Stack.Screen name="AllergyAdd" component={AllergyAddScreen} />
 				<Stack.Screen name="ProductAdd" component={ProductAddScreen} />
-				<Stack.Screen name="SignIn" component={SignInScreen} />
 				<Stack.Screen name="SignUp" component={SignUpScreen} />
 				<Stack.Screen name="RecipeList" component={RecipeListScreen} />
 				<Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
