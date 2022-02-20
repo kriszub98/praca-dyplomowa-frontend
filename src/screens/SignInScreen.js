@@ -1,24 +1,39 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
+import allergyBackend from '../api/allergyBackend';
 import CustomDimensions from '../constans/Dimensions';
 import CustomColors from '../constans/Colors';
 import useInput from '../hooks/useInput';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import TitleText from '../components/TitleText';
+import { login } from '../store/actions/auth';
 
 const SignInScreen = () => {
-	const [ username, bindUsername, resetUsername ] = useInput('');
+	const [ email, bindEmail, resetEmail ] = useInput('');
 	const [ password, bindPassword, resetPassword ] = useInput('');
+	const [ errorMessage, setErrorMessage ] = useState('');
 
 	const navigation = useNavigation();
+	const dispatch = useDispatch();
 
-	const onSignInPressed = () => {
-		// TODO: Logowanie, a potem redirect do home
-		navigation.navigate('RecipeList');
+	const onLoginPressed = async () => {
+		try {
+			const response = await allergyBackend.post('/users/login', { email, password });
+
+			// Login Successful, dispatch login data
+			const { user, token } = response.data;
+			dispatch(login(user, token));
+
+			return navigation.navigate('RecipeList');
+		} catch (error) {
+			return setErrorMessage('Niepoprawne dane logowania');
+		}
 	};
+
 	const onSignUpPressed = () => {
 		navigation.navigate('SignUp');
 	};
@@ -27,11 +42,11 @@ const SignInScreen = () => {
 		<ScrollView>
 			<View style={styles.root}>
 				<TitleText style={styles.title}>Zaloguj się</TitleText>
-
-				<CustomInput placeholder="Login" {...bindUsername} />
+				{errorMessage ? <TitleText style={styles.errorMessage}>{errorMessage}</TitleText> : null}
+				<CustomInput placeholder="Email" {...bindEmail} />
 				<CustomInput placeholder="Hasło" {...bindPassword} secureTextEntry />
 
-				<CustomButton onPress={onSignInPressed} text="Zaloguj się" />
+				<CustomButton onPress={onLoginPressed} text="Zaloguj się" />
 				<CustomButton onPress={onSignUpPressed} text="Utwórz konto" type="TERTIARY" />
 			</View>
 		</ScrollView>
@@ -49,5 +64,10 @@ const styles = StyleSheet.create({
 		fontSize: CustomDimensions.bigTitle,
 		color: CustomColors.primaryTitle,
 		marginVertical: '15%'
+	},
+	errorMessage: {
+		marginBottom: 20,
+		fontSize: 20,
+		color: CustomColors.errorText
 	}
 });
