@@ -28,7 +28,8 @@ const SignInScreen = () => {
 			const { user, token } = response.data;
 			dispatch(login(user, token));
 
-			return navigation.navigate('ProductAdd');
+			// return navigation.navigate('ProductAdd');
+			return navigation.navigate('RecipeAdd');
 		} catch (error) {
 			return setErrorMessage('Niepoprawne dane logowania');
 		}
@@ -42,6 +43,7 @@ const SignInScreen = () => {
 		<ScrollView>
 			<View style={styles.root}>
 				<TitleText style={styles.title}>Zaloguj się</TitleText>
+				{/*TODO: Przenieś error do ErrorText Componentu */}
 				{errorMessage ? <TitleText style={styles.errorMessage}>{errorMessage}</TitleText> : null}
 				<CustomInput placeholder="Email" {...bindEmail} />
 				<CustomInput placeholder="Hasło" {...bindPassword} secureTextEntry />

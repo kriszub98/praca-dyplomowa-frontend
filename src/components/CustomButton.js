@@ -36,12 +36,21 @@ const styles = StyleSheet.create({
 	container_PRIMARY: {
 		backgroundColor: CustomColors.primaryButton
 	},
+	container_SECONDARY: {
+		borderWidth: 1,
+		borderColor: CustomColors.primaryButton
+	},
 	container_TERTIARY: {},
 	text: {
-		fontWeight: 'bold',
-		color: 'white'
+		color: 'white',
+		fontWeight: 'bold'
+	},
+	text_SECONDARY: {
+		color: CustomColors.primaryButton,
+		fontWeight: 'bold'
 	},
 	text_TERTIARY: {
-		color: 'gray'
+		color: 'gray',
+		fontWeight: 'bold'
 	}
 });
