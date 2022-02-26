@@ -1,9 +1,9 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
-import useProducts from '../hooks/useProducts';
+import RecipeProduct from '../models/RecipeProduct';
 import useInput from '../hooks/useInput';
 import CustomColors from '../constans/Colors';
 import CustomDimensions from '../constans/Dimensions';
@@ -12,20 +12,29 @@ import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import PreparationCard from '../components/PreparationCard';
 
-const ProductAddScreen = () => {
+const ProductAddScreen = ({ route }) => {
+	const navigation = useNavigation();
+
+	// Check if somebody is adding new product from SearchProductScreen
+	useEffect(
+		() => {
+			if (route.params && route.params.product) {
+				const newProduct = new RecipeProduct(route.params.product);
+				return setChosenProducts((prevProducts) => [ ...prevProducts, newProduct ]);
+			}
+		},
+		[ route.params ]
+	);
+
 	const auth = useSelector((state) => state.auth);
-	const { products, errorMessage: productsErrorMessage } = useProducts();
 
 	// Form Data
 	const [ name, bindName, resetName ] = useInput('');
 	const [ description, bindDescription, resetDescription ] = useInput('');
 	const [ preparation, bindPreparation, resetPreparation ] = useInput('');
 	const [ preparationSteps, setPreparationSteps ] = useState([]);
-	const [ chosenAllergies, setChosenAllergies ] = useState([]);
+	const [ chosenProducts, setChosenProducts ] = useState([]);
 
-	const navigation = useNavigation();
-
-	// Preparation functions
 	const resetPreparationSteps = () => {
 		setPreparationSteps([]);
 	};
@@ -33,6 +42,10 @@ const ProductAddScreen = () => {
 	const onAddPreparationPressed = () => {
 		setPreparationSteps((prevSteps) => [ ...prevSteps, preparation ]);
 		resetPreparation();
+	};
+
+	const onSearchProductPress = () => {
+		navigation.navigate('SearchProducts');
 	};
 
 	const resetForm = () => {
@@ -72,6 +85,11 @@ const ProductAddScreen = () => {
 
 				{/* PRODUCTS SECTION */}
 				<TitleText style={styles.sectionText}>Produkty:</TitleText>
+				{chosenProducts.map((recipeProduct) => (
+					<TitleText key={recipeProduct.product._id}>{recipeProduct.product.name}</TitleText>
+				))}
+				<CustomButton onPress={onSearchProductPress} text="Dodaj produkt do przepisu" type="SECONDARY" />
+
 				<CustomButton onPress={onSubmitPressed} text="Dodaj przepis" />
 			</View>
 		</ScrollView>
@@ -105,7 +123,8 @@ const styles = StyleSheet.create({
 		width: '15%'
 	},
 	sectionText: {
-		paddingTop: 18,
+		marginTop: 20,
+		marginBottom: 10,
 		width: '100%',
 		fontSize: 18
 	}
