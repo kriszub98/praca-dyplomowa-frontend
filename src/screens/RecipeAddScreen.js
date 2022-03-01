@@ -39,6 +39,24 @@ const ProductAddScreen = ({ route }) => {
 		setPreparationSteps([]);
 	};
 
+	const editPreparationStep = (index, changedValue) => {
+		// Może index i nowa wartość
+		// Nowa wartość (wartosc) => return String: Nowa Wartość
+		setPreparationSteps((prevSteps) => {
+			let newSteps = [ ...prevSteps ];
+			newSteps[index] = changedValue;
+			return newSteps;
+		});
+	};
+
+	const removePreparationStep = (index) => {
+		setPreparationSteps((prevSteps) => {
+			let newSteps = [ ...prevSteps ];
+			newSteps.splice(index, 1);
+			return newSteps;
+		});
+	};
+
 	const onAddPreparationPressed = () => {
 		setPreparationSteps((prevSteps) => [ ...prevSteps, preparation ]);
 		resetPreparation();
@@ -73,7 +91,15 @@ const ProductAddScreen = ({ route }) => {
 
 				{/* PREPARATION SECTION */}
 				<TitleText style={styles.sectionText}>Przygotowanie:</TitleText>
-				{preparationSteps.map((step, idx) => <PreparationCard key={idx} step={step} />)}
+				{preparationSteps.map((step, idx) => (
+					<PreparationCard
+						key={idx}
+						index={idx}
+						step={step}
+						removePreparation={removePreparationStep}
+						editPreparation={editPreparationStep}
+					/>
+				))}
 				<View style={styles.preparationWrapper}>
 					<View style={styles.preparationInputContainer}>
 						<CustomInput placeholder="Podaj kolejny krok" {...bindPreparation} multiline />

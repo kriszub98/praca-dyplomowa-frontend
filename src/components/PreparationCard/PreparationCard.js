@@ -1,13 +1,52 @@
-import { StyleSheet, View } from 'react-native';
-import React from 'react';
+import { StyleSheet, View, Pressable } from 'react-native';
+import React, { useState } from 'react';
 
 import DefaultText from '../DefaultText';
+import useInput from '../../hooks/useInput';
+import CustomInput from '../CustomInput';
+import CustomButton from '../CustomButton';
 
-const PreparationCard = ({ step }) => {
+const PreparationCard = ({ step, index, removePreparation, editPreparation }) => {
+	const [ stepText, bindStepText, resetStepText ] = useInput(step);
+	const [ isExpanded, setIsExpanded ] = useState(false);
+	const toggleExpand = () => {
+		setIsExpanded(!isExpanded);
+	};
+
+	// PreparationCard Expanded
+	if (isExpanded) {
+		const onSavePress = () => {
+			editPreparation(index, stepText);
+			toggleExpand();
+			resetStepText();
+		};
+
+		const onRemovePress = () => {
+			removePreparation(index);
+			toggleExpand();
+			resetStepText();
+		};
+
+		return (
+			<View style={styles.container}>
+				<CustomInput {...bindStepText} multiline autoFocus />
+				<View style={styles.buttonContainer}>
+					<View>
+						<CustomButton type="PRIMARY" text="Zapisz zmiany" onPress={onSavePress} />
+					</View>
+					<View>
+						<CustomButton type="TERTIARY" fgColor={'red'} text="Usuń krok" onPress={onRemovePress} />
+					</View>
+				</View>
+			</View>
+		);
+	}
+
+	// PreparationCard not Expanded
 	return (
-		<View style={styles.container}>
+		<Pressable style={styles.container} onPress={toggleExpand}>
 			<DefaultText style={styles.text}>{step}</DefaultText>
-		</View>
+		</Pressable>
 	);
 };
 
@@ -30,5 +69,9 @@ const styles = StyleSheet.create({
 		shadowColor: '#333',
 		shadowOpacity: 0.3,
 		shadowRadius: 2
+	},
+	buttonContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
 	}
 });
