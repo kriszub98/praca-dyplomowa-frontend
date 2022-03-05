@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
+import allergyBackend from '../api/allergyBackend';
 import RecipeProduct from '../models/RecipeProduct';
 import useInput from '../hooks/useInput';
 import CustomColors from '../constans/Colors';
@@ -34,6 +35,7 @@ const ProductAddScreen = ({ route }) => {
 	const [ name, bindName, resetName ] = useInput('');
 	const [ description, bindDescription, resetDescription ] = useInput('');
 	const [ preparation, bindPreparation, resetPreparation ] = useInput('');
+	const [ errorMessage, setErrorMessage ] = useState('');
 	const [ preparationSteps, setPreparationSteps ] = useState([]);
 	const [ chosenProducts, setChosenProducts ] = useState([]);
 
@@ -69,10 +71,10 @@ const ProductAddScreen = ({ route }) => {
 		});
 	};
 
-	const editProductQuantity = (index, newQuantity) => {
+	const editProductAmount = (index, newAmount) => {
 		setChosenProducts((prevProducts) => {
 			let newProducts = [ ...prevProducts ];
-			newProducts[index].quantity = newQuantity;
+			newProducts[index].amount = newAmount;
 			return newProducts;
 		});
 	};
@@ -94,20 +96,32 @@ const ProductAddScreen = ({ route }) => {
 		resetChosenProducts();
 	};
 
-	const onSubmitPressed = () => {
+	const onSubmitPressed = async () => {
+		// TODO: VALIDATION
+		// TODO: Sprawdz czy wszystko wypełnione, może dodaj errorMessage do produktu, jeżeli ktoś nie podał quant. If wszystkie wypełnione wyślij forma!
+
+		// Preparing data to send
 		let formData = {
 			name,
 			description,
-			chosenProducts,
-			preparationSteps
+			preparation: preparationSteps,
+			products: chosenProducts
 		};
-		console.log(formData);
-		// console.log(preparationSteps);
-		// TODO: Sprawdz czy wszystko wypełnione, może dodaj errorMessage do produktu, jeżeli ktoś nie podał quant. If wszystkie wypełnione wyślij forma!
-		// TODO: usun koment resetForm();
-		// TODO: Dodawanie Recipe
-		// TODO: Zmień redirecta
-		// return navigation.navigate('ProductList');
+
+		try {
+			const result = await allergyBackend.post('/recipes', formData, {
+				headers: { Authorization: `Bearer ${auth.token}` }
+			});
+
+			// Successfully added Recipe
+			resetForm();
+			// TODO: Zmień redirecta
+			return navigation.navigate('RecipeList');
+		} catch (error) {
+			console.log(error.response.data.error);
+			return setErrorMessage(error.response.data.error);
+			// TODO: Use the error message
+		}
 	};
 
 	return (
@@ -147,8 +161,8 @@ const ProductAddScreen = ({ route }) => {
 						product={recipeProduct.product}
 						index={index}
 						removeProduct={removeProduct}
-						quantity={recipeProduct.quantity}
-						editProductQuantity={editProductQuantity}
+						amount={recipeProduct.amount}
+						editProductAmount={editProductAmount}
 					/>
 				))}
 				<CustomButton onPress={onSearchProductPress} text="Dodaj produkt do przepisu" type="SECONDARY" />

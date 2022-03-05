@@ -1,6 +1,6 @@
 export default class RecipeProduct {
 	constructor(product) {
 		this.product = product;
-		this.quantity = '';
+		this.amount = '';
 	}
 }

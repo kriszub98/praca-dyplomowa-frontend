@@ -27,7 +27,7 @@ const useProducts = () => {
 					headers: { Authorization: `Bearer ${token}` }
 				}
 			);
-			console.log(result);
+			console.log(result); // TODO: USUŃ KOMENTY
 		} catch (error) {
 			console.log(error.response.data.error);
 			return setErrorMessage(error.response.data.error);

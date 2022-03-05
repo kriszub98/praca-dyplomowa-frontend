@@ -7,7 +7,7 @@ const useRecipes = () => {
 
 	const getRecipes = async () => {
 		try {
-			const results = await allergyBackend.get('/users');
+			const results = await allergyBackend.get('/recipes');
 			console.log(results.data);
 		} catch (error) {
 			console.error(error);

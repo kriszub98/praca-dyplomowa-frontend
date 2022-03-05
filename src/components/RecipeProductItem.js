@@ -8,16 +8,16 @@ import DefaultText from './DefaultText';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
 
-const RecipeProductItem = ({ product, index, quantity, removeProduct, editProductQuantity }) => {
-	const [ quantityInput, bindQuantityInput, resetQuantityInput ] = useInput(quantity);
+const RecipeProductItem = ({ product, index, amount, removeProduct, editProductAmount }) => {
+	const [ amountInput, bindAmountInput, resetAmountInput ] = useInput(amount);
 
 	const handleOnRemovePress = () => {
 		removeProduct(index);
-		resetQuantityInput();
+		resetAmountInput();
 	};
 
 	const handleOnEndEditing = () => {
-		editProductQuantity(index, quantityInput);
+		editProductAmount(index, amountInput);
 	};
 
 	return (
@@ -34,12 +34,12 @@ const RecipeProductItem = ({ product, index, quantity, removeProduct, editProduc
 				</View>
 			</View>
 
-			{/* Quantity Data */}
-			<View style={styles.quantityContainer}>
+			{/* Amount Data */}
+			<View style={styles.amountContainer}>
 				<View style={styles.inputContainer}>
 					<CustomInput
 						placeholder="Ilość produktu wraz z miarą"
-						{...bindQuantityInput}
+						{...bindAmountInput}
 						onEndEditing={handleOnEndEditing}
 					/>
 				</View>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
 		marginVertical: 5,
 		marginRight: 10
 	},
-	quantityContainer: {
+	amountContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between'
 	},
