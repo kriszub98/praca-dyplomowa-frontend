@@ -45,7 +45,7 @@ const SignInScreen = () => {
 				<TitleText style={styles.title}>Zaloguj się</TitleText>
 				{/*TODO: Przenieś error do ErrorText Componentu */}
 				{errorMessage ? <TitleText style={styles.errorMessage}>{errorMessage}</TitleText> : null}
-				<CustomInput placeholder="Email" {...bindEmail} />
+				<CustomInput placeholder="Email" {...bindEmail} keyboardType="email-address" />
 				<CustomInput placeholder="Hasło" {...bindPassword} secureTextEntry />
 
 				<CustomButton onPress={onLoginPressed} text="Zaloguj się" />

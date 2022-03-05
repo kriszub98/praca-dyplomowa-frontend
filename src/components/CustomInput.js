@@ -1,7 +1,16 @@
 import { StyleSheet, View, TextInput } from 'react-native';
 import React from 'react';
 
-const CustomInput = ({ value, setValue, placeholder, secureTextEntry, multiline, autoFocus, onEndEditing }) => {
+const CustomInput = ({
+	value,
+	setValue,
+	placeholder,
+	secureTextEntry,
+	multiline,
+	keyboardType,
+	autoFocus,
+	onEndEditing
+}) => {
 	return (
 		<View style={styles.container}>
 			<TextInput
@@ -13,6 +22,7 @@ const CustomInput = ({ value, setValue, placeholder, secureTextEntry, multiline,
 				secureTextEntry={secureTextEntry}
 				multiline={multiline}
 				autoFocus={autoFocus}
+				keyboardType={keyboardType}
 			/>
 		</View>
 	);

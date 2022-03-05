@@ -11,6 +11,7 @@ import TitleText from '../components/TitleText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import PreparationCard from '../components/PreparationCard';
+import RecipeProductItem from '../components/RecipeProductItem';
 
 const ProductAddScreen = ({ route }) => {
 	const navigation = useNavigation();
@@ -18,6 +19,7 @@ const ProductAddScreen = ({ route }) => {
 	// Check if somebody is adding new product from SearchProductScreen
 	useEffect(
 		() => {
+			// TODO: CHECK IF PROD iS ALREADY IN
 			if (route.params && route.params.product) {
 				const newProduct = new RecipeProduct(route.params.product);
 				return setChosenProducts((prevProducts) => [ ...prevProducts, newProduct ]);
@@ -39,9 +41,11 @@ const ProductAddScreen = ({ route }) => {
 		setPreparationSteps([]);
 	};
 
+	const resetChosenProducts = () => {
+		setChosenProducts([]);
+	};
+
 	const editPreparationStep = (index, changedValue) => {
-		// Może index i nowa wartość
-		// Nowa wartość (wartosc) => return String: Nowa Wartość
 		setPreparationSteps((prevSteps) => {
 			let newSteps = [ ...prevSteps ];
 			newSteps[index] = changedValue;
@@ -54,6 +58,22 @@ const ProductAddScreen = ({ route }) => {
 			let newSteps = [ ...prevSteps ];
 			newSteps.splice(index, 1);
 			return newSteps;
+		});
+	};
+
+	const removeProduct = (index) => {
+		setChosenProducts((prevProducts) => {
+			let newProducts = [ ...prevProducts ];
+			newProducts.splice(index, 1);
+			return newProducts;
+		});
+	};
+
+	const editProductQuantity = (index, newQuantity) => {
+		setChosenProducts((prevProducts) => {
+			let newProducts = [ ...prevProducts ];
+			newProducts[index].quantity = newQuantity;
+			return newProducts;
 		});
 	};
 
@@ -71,10 +91,20 @@ const ProductAddScreen = ({ route }) => {
 		resetDescription();
 		resetPreparation();
 		resetPreparationSteps();
+		resetChosenProducts();
 	};
 
 	const onSubmitPressed = () => {
-		resetForm();
+		let formData = {
+			name,
+			description,
+			chosenProducts,
+			preparationSteps
+		};
+		console.log(formData);
+		// console.log(preparationSteps);
+		// TODO: Sprawdz czy wszystko wypełnione, może dodaj errorMessage do produktu, jeżeli ktoś nie podał quant. If wszystkie wypełnione wyślij forma!
+		// TODO: usun koment resetForm();
 		// TODO: Dodawanie Recipe
 		// TODO: Zmień redirecta
 		// return navigation.navigate('ProductList');
@@ -111,8 +141,15 @@ const ProductAddScreen = ({ route }) => {
 
 				{/* PRODUCTS SECTION */}
 				<TitleText style={styles.sectionText}>Produkty:</TitleText>
-				{chosenProducts.map((recipeProduct) => (
-					<TitleText key={recipeProduct.product._id}>{recipeProduct.product.name}</TitleText>
+				{chosenProducts.map((recipeProduct, index) => (
+					<RecipeProductItem
+						key={recipeProduct.product._id}
+						product={recipeProduct.product}
+						index={index}
+						removeProduct={removeProduct}
+						quantity={recipeProduct.quantity}
+						editProductQuantity={editProductQuantity}
+					/>
 				))}
 				<CustomButton onPress={onSearchProductPress} text="Dodaj produkt do przepisu" type="SECONDARY" />
 
@@ -156,4 +193,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-// TODO: Edycja preparation steps
+// TODO: W SearchScreenie nie pokaazuj produktów, które są wybrane
