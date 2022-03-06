@@ -51,6 +51,8 @@ const RecipeProductItem = ({ product, index, amount, removeProduct, editProductA
 	);
 };
 
+// TODO: POKAŻ WSZYSTKIE ALLERGIE!!!!
+
 export default RecipeProductItem;
 
 const styles = StyleSheet.create({

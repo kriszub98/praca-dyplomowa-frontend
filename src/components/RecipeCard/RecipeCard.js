@@ -6,6 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import CustomColors from '../../constans/Colors';
 import DefaultText from '../../components/DefaultText';
 import TitleText from '../../components/TitleText';
+import AllergyContainer from '../../components/AllergyContainer';
 
 const RecipeCard = ({ recipe, onPress }) => {
 	const { height } = useWindowDimensions();
@@ -15,6 +16,8 @@ const RecipeCard = ({ recipe, onPress }) => {
 	return (
 		<TouchableNativeFeedback useForeground={true} onPress={() => navigation.navigate('RecipeDetail')}>
 			<View style={styles.container}>
+				{/* Photo Section */}
+				{/* TODO: IF NO PHOTO: MAKE IT DEFAULT */}
 				<Image
 					source={{
 						uri: recipe.imageurl
@@ -22,9 +25,10 @@ const RecipeCard = ({ recipe, onPress }) => {
 					style={[ styles.image, { height: height * 0.25 } ]}
 				/>
 
+				{/* Author Section */}
 				<View style={styles.dateValidationRow}>
 					<View>
-						<DefaultText style={styles.secondaryText}>Dodał: {recipe.author.name}</DefaultText>
+						<DefaultText style={styles.secondaryText}>Dodał: {recipe.owner.login}</DefaultText>
 						<DefaultText style={styles.secondaryText}>Data dodania: {recipe.createdAt}</DefaultText>
 					</View>
 					{recipe.isValidated && (
@@ -35,15 +39,16 @@ const RecipeCard = ({ recipe, onPress }) => {
 					)}
 				</View>
 
+				{/* Recipe Data */}
 				<View style={styles.infoContainer}>
-					<TitleText style={styles.title}>{recipe.title}</TitleText>
+					<TitleText style={styles.title}>{recipe.name}</TitleText>
 					<DefaultText style={styles.description}>{recipe.description}</DefaultText>
 				</View>
 
-				<View style={styles.allergyContainer}>
-					<TitleText>GLU </TitleText>
-					<TitleText>LAC</TitleText>
-				</View>
+				{/* Allergies Data */}
+				<AllergyContainer allergies={recipe.allergies} />
+
+				{/* TODO: Rating */}
 			</View>
 		</TouchableNativeFeedback>
 	);
@@ -103,10 +108,5 @@ const styles = StyleSheet.create({
 	description: {
 		fontSize: 14,
 		color: 'gray'
-	},
-	allergyContainer: {
-		flexDirection: 'row',
-		marginLeft: 12,
-		marginBottom: 6
 	}
 });

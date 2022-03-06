@@ -11,7 +11,7 @@ import CustomDimensions from '../constans/Dimensions';
 import TitleText from '../components/TitleText';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
-import AllergyContainer from '../components/AllergyContainer';
+import AddAllergyContainer from '../components/AddAllergyContainer';
 
 const ProductAddScreen = () => {
 	const auth = useSelector((state) => state.auth);
@@ -49,7 +49,7 @@ const ProductAddScreen = () => {
 				{/* TODO: Zmien na CustomTextArea */}
 
 				<TitleText style={styles.allergenText}>Alergeny:</TitleText>
-				<AllergyContainer allergies={allergies} onAllergyPressed={onAllergyPressed} />
+				<AddAllergyContainer allergies={allergies} onAllergyPressed={onAllergyPressed} />
 				<CustomButton onPress={onSubmitPressed} text="Dodaj produkt" />
 			</View>
 		</ScrollView>

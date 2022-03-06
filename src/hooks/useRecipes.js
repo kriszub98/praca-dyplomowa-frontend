@@ -8,9 +8,10 @@ const useRecipes = () => {
 	const getRecipes = async () => {
 		try {
 			const results = await allergyBackend.get('/recipes');
-			console.log(results.data);
+			setRecipes(results.data);
 		} catch (error) {
 			console.error(error);
+			setErrorMessage(error.response.data.error);
 		}
 	};
 

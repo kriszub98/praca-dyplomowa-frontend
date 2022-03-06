@@ -29,7 +29,7 @@ const SignInScreen = () => {
 			dispatch(login(user, token));
 
 			// return navigation.navigate('ProductAdd');
-			return navigation.navigate('RecipeAdd');
+			return navigation.navigate('RecipeList');
 		} catch (error) {
 			return setErrorMessage('Niepoprawne dane logowania');
 		}
