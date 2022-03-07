@@ -4,7 +4,7 @@ import TitleText from './TitleText';
 import DefaultText from './DefaultText';
 import CustomColors from '../constans/Colors';
 
-const ListItem = ({ title, quantity }) => {
+const ListItem = ({ name, amount }) => {
 	const [ isStroke, setIsStroke ] = useState(false);
 	const toggleStrike = () => {
 		setIsStroke(!isStroke);
@@ -15,12 +15,12 @@ const ListItem = ({ title, quantity }) => {
 			<TitleText
 				style={{ ...styles.ingridientTitle, ...{ textDecorationLine: isStroke ? 'line-through' : 'none' } }}
 			>
-				{title}
+				{name}
 			</TitleText>
 			<DefaultText
 				style={{ ...styles.ingridientQuant, ...{ textDecorationLine: isStroke ? 'line-through' : 'none' } }}
 			>
-				{quantity}
+				{amount}
 			</DefaultText>
 		</TouchableOpacity>
 	);
@@ -28,7 +28,7 @@ const ListItem = ({ title, quantity }) => {
 
 const RecipeProducts = ({ products }) => {
 	let productList = products.map((product) => (
-		<ListItem key={product.id} title={product.title} quantity={product.quantity} />
+		<ListItem key={product._id} name={product.product.name} amount={product.amount} />
 	));
 
 	return (

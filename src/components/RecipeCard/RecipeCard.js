@@ -14,7 +14,7 @@ const RecipeCard = ({ recipe, onPress }) => {
 	const navigation = useNavigation();
 
 	return (
-		<TouchableNativeFeedback useForeground={true} onPress={() => navigation.navigate('RecipeDetail')}>
+		<TouchableNativeFeedback useForeground={true} onPress={onPress}>
 			<View style={styles.container}>
 				{/* Photo Section */}
 				{/* TODO: IF NO PHOTO: MAKE IT DEFAULT */}

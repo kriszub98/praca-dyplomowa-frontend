@@ -7,7 +7,7 @@ const RecipeAuthor = ({ author }) => {
 	return (
 		<View>
 			<DefaultText style={styles.secondaryText}>Dodane przez:</DefaultText>
-			<TitleText style={styles.primaryText}>{author.name}</TitleText>
+			<TitleText style={styles.primaryText}>{author.login}</TitleText>
 		</View>
 	);
 };

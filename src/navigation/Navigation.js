@@ -36,10 +36,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-
-// return <SignUpScreen />;
-// return <FiltersScreen />;
-// return <SignInScreen />;
-// return <RecipeListScreen />;
-// return <ProductDetailScreen />;
-// return <RecipeDetailScreen />;

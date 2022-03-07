@@ -23,7 +23,7 @@ const ListItem = (props) => {
 };
 
 const RecipePreparation = ({ steps }) => {
-	let stepList = steps.map((step) => <ListItem key={step.id}>{step.title}</ListItem>);
+	let stepList = steps.map((step, idx) => <ListItem key={idx}>{step}</ListItem>);
 	return (
 		<View style={styles.container}>
 			<TitleText style={styles.title}>Przygotowanie</TitleText>

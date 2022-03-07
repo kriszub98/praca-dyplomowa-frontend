@@ -6,8 +6,12 @@ import useRecipes from '../hooks/useRecipes';
 import TitleText from '../components/TitleText';
 import Colors from '../constans/Colors';
 
-const RecipeListScreen = () => {
+const RecipeListScreen = ({ navigation }) => {
 	const { recipes, errorMessage, getRecipes } = useRecipes();
+
+	const goToDetails = (recipe) => {
+		navigation.navigate('RecipeDetail', { recipe });
+	};
 
 	if (errorMessage) {
 		return (
@@ -27,7 +31,13 @@ const RecipeListScreen = () => {
 		);
 	}
 
-	return <ScrollView>{recipes.map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} />)}</ScrollView>;
+	return (
+		<ScrollView>
+			{recipes.map((recipe) => (
+				<RecipeCard key={recipe._id} recipe={recipe} onPress={() => goToDetails(recipe)} />
+			))}
+		</ScrollView>
+	);
 };
 
 const styles = StyleSheet.create({
