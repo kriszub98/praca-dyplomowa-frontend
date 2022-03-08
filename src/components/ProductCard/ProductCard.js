@@ -10,7 +10,7 @@ const RecipeCard = ({ product, onPress }) => {
 	const { height } = useWindowDimensions();
 
 	const navigation = useNavigation();
-
+	// TODO: CHANGE ONPRESS
 	return (
 		<TouchableNativeFeedback useForeground={true} onPress={() => navigation.navigate('ProductDetail')}>
 			<View style={styles.container}>
