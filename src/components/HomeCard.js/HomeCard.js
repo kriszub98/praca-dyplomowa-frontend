@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
 		borderRadius: 6,
 		elevation: 3,
 
-		marginHorizontal: 6,
-		marginVertical: 6,
+		marginHorizontal: 12,
+		marginVertical: 8,
 		overflow: 'hidden',
 		height: 150,
 		justifyContent: 'flex-end'

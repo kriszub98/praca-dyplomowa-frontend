@@ -16,6 +16,7 @@ import RecipeProductItem from '../components/RecipeProductItem';
 
 const ProductAddScreen = ({ route }) => {
 	const navigation = useNavigation();
+	const auth = useSelector((state) => state.auth);
 
 	// Check if somebody is adding new product from SearchProductScreen
 	useEffect(
@@ -28,8 +29,6 @@ const ProductAddScreen = ({ route }) => {
 		},
 		[ route.params ]
 	);
-
-	const auth = useSelector((state) => state.auth);
 
 	// Form Data
 	const [ name, bindName, resetName ] = useInput('');
