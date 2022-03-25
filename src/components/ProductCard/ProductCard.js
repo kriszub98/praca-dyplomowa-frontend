@@ -9,10 +9,8 @@ import TitleText from '../../components/TitleText';
 const RecipeCard = ({ product, onPress }) => {
 	const { height } = useWindowDimensions();
 
-	const navigation = useNavigation();
-	// TODO: CHANGE ONPRESS
 	return (
-		<TouchableNativeFeedback useForeground={true} onPress={() => navigation.navigate('ProductDetail')}>
+		<TouchableNativeFeedback useForeground={true} onPress={onPress}>
 			<View style={styles.container}>
 				<View style={styles.dateValidationRow}>
 					<View>
