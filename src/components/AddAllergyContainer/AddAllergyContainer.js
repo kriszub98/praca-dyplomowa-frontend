@@ -20,3 +20,5 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between'
 	}
 });
+
+//TODO: TitleCase by wyglądał ładnie

@@ -18,6 +18,7 @@ import RecipeAddScreen from '../screens/RecipeAddScreen';
 import SearchProductsScreen from '../screens/SearchProductsScreen';
 
 import FiltersScreen from '../screens/FiltersScreen';
+import AllergySelectScreen from '../screens/AllergySelectScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -147,6 +148,7 @@ const MainDrawer = () => {
 				// Logged User
 				<Stack.Group>
 					<Stack.Screen name="SearchProducts" component={SearchProductsScreen} />
+					<Stack.Screen name="AllergySelect" component={AllergySelectScreen} />
 				</Stack.Group>
 			)}
 		</Stack.Navigator>

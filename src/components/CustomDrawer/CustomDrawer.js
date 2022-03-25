@@ -59,7 +59,7 @@ const CustomDrawer = (props) => {
 
 			{/* Bottom Drawer */}
 			<View style={styles.bottomDrawerContainer}>
-				<TouchableNativeFeedback onPress={() => {}}>
+				<TouchableNativeFeedback onPress={() => props.navigation.navigate('AllergySelect')}>
 					<View style={styles.bottomLinkWrapper}>
 						<MaterialCommunityIcons size={22} color={Colors.primaryTitle} name="cog" />
 						<DefaultText style={styles.bottomLinkText}>Ustawienia</DefaultText>

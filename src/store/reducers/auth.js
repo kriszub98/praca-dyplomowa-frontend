@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESSFUL, LOGOUT_SUCCESSFUL } from '../actions/auth';
+import { LOGIN_SUCCESSFUL, LOGOUT_SUCCESSFUL, USER_UPDATED } from '../actions/auth';
 
 const initialState = {
 	isLogged: false,
@@ -21,6 +21,11 @@ const authReducer = (state = initialState, action) => {
 				isLogged: false,
 				user: null,
 				token: null
+			};
+		case USER_UPDATED:
+			return {
+				...state,
+				user: action.user
 			};
 		default:
 			return state;
