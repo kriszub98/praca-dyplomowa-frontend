@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import DefaultText from '../DefaultText';
 import CustomColors from '../../constans/Colors';
 
-const AllergyItem = ({ name, onPress }) => {
-	const [ isPressed, setIsPressed ] = useState(false);
+const AllergyItem = ({ name, onPress, selected }) => {
+	const [ isPressed, setIsPressed ] = useState(selected);
 
 	const onAllergyPressed = () => {
 		onPress();

@@ -45,8 +45,7 @@ const SignUpScreen = () => {
 			let response = await allergyBackend.post('/users', registerData);
 			const { user, token } = response.data;
 			dispatch(login(user, token));
-			// TODO: GOTO choose allergies
-			return navigation.navigate('Home');
+			return navigation.navigate('AllergySelect');
 		}
 	};
 

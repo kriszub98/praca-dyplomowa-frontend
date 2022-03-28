@@ -2,10 +2,19 @@ import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import AllergyItem from './AllergyItem';
 
-const AddAllergyContainer = ({ allergies, onAllergyPressed }) => {
-	let styledAllergies = allergies.map((allergy) => (
-		<AllergyItem name={allergy.name} key={allergy._id} onPress={() => onAllergyPressed(allergy)} />
-	));
+const AddAllergyContainer = ({ allergies, onAllergyPressed, selectedAllergies }) => {
+	let styledAllergies = allergies.map((allergy) => {
+		let isSelected = selectedAllergies.some((a) => a === allergy._id);
+
+		return (
+			<AllergyItem
+				name={allergy.name}
+				key={allergy._id}
+				onPress={() => onAllergyPressed(allergy)}
+				selected={isSelected}
+			/>
+		);
+	});
 
 	return <View style={styles.container}>{styledAllergies}</View>;
 };

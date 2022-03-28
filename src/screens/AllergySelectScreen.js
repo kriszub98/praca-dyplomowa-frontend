@@ -16,7 +16,6 @@ const AllergySelectScreen = () => {
 	const [ chosenAllergies, setChosenAllergies ] = useState([]);
 	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
-
 	const navigation = useNavigation();
 
 	const onAllergyPressed = (allergy) => {
@@ -55,7 +54,11 @@ const AllergySelectScreen = () => {
 
 			<View style={styles.contentWrapper}>
 				<ScrollView>
-					<AddAllergyContainer allergies={allergies} onAllergyPressed={onAllergyPressed} />
+					<AddAllergyContainer
+						allergies={allergies}
+						onAllergyPressed={onAllergyPressed}
+						selectedAllergies={auth.user.allergies}
+					/>
 				</ScrollView>
 				<CustomButton text="Zapisz wybór" onPress={onSaveAllergiesPress} />
 			</View>
@@ -83,3 +86,5 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between'
 	}
 });
+
+// TODO: Pass Selected allergies to component
