@@ -6,19 +6,22 @@ import { FontAwesome, MaterialCommunityIcons, Ionicons } from '@expo/vector-icon
 
 import CustomDrawer from '../components/CustomDrawer';
 import Colors from '../constans/Colors';
-import HomeScreen from '../screens/HomeScreen';
-import ProductListScreen from '../screens/ProductListScreen';
-import RecipeListScreen from '../screens/RecipeListScreen';
-import SignInScreen from '../screens/SignInScreen';
-import SignUpScreen from '../screens/SignUpScreen';
-import ProductDetailScreen from '../screens/ProductDetailScreen';
-import RecipeDetailScreen from '../screens/RecipeDetailScreen';
-import ProductAddScreen from '../screens/ProductAddScreen';
-import RecipeAddScreen from '../screens/RecipeAddScreen';
-import SearchProductsScreen from '../screens/SearchProductsScreen';
 
-import FiltersScreen from '../screens/FiltersScreen';
-import AllergySelectScreen from '../screens/AllergySelectScreen';
+import {
+	AllergyAddScreen,
+	AllergySelectScreen,
+	FiltersScreen,
+	HomeScreen,
+	ProductAddScreen,
+	ProductDetailScreen,
+	ProductListScreen,
+	RecipeAddScreen,
+	RecipeDetailScreen,
+	RecipeListScreen,
+	SearchProductsScreen,
+	SignInScreen,
+	SignUpScreen
+} from '../screens';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -132,6 +135,15 @@ const MainDrawer = () => {
 								drawerIcon: ({ color }) => <Ionicons name="add-circle-sharp" size={22} color={color} />
 							}}
 						/>
+						{/* TODO: Zmień to na tylko Doktor/Admin */}
+						<Drawer.Screen
+							name="AllergyAdd"
+							component={AllergyAddScreen}
+							options={{
+								drawerLabel: 'Dodaj alergię',
+								drawerIcon: ({ color }) => <Ionicons name="add-circle-sharp" size={22} color={color} />
+							}}
+						/>
 					</Drawer.Group>
 				)}
 			</Drawer.Navigator>
@@ -143,6 +155,7 @@ const MainDrawer = () => {
 			<Stack.Screen name="Root" component={Root} options={{ headerShown: false }} />
 			<Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
 			<Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
+			<Stack.Screen name="Filters" component={FiltersScreen} />
 
 			{auth.isLogged && (
 				// Logged User

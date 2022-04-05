@@ -6,9 +6,11 @@ import { createStore, combineReducers } from 'redux';
 import CustomColors from './src/constans/Colors';
 import authReducer from './src/store/reducers/auth';
 import Navigation from './src/navigation/Navigation';
+import filtersReducer from './src/store/reducers/filters';
 
 const rootReducer = combineReducers({
-	auth: authReducer
+	auth: authReducer,
+	activeFilters: filtersReducer
 });
 
 const store = createStore(rootReducer);

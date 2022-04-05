@@ -1,38 +1,47 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Switch, Platform } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Colors from '../constans/Colors';
+import TitleText from '../components/TitleText';
+import CustomButton from '../components/CustomButton';
+import AddAllergyContainer from '../components/AddAllergyContainer';
+import useAllergies from '../hooks/useAllergies';
+import { saveAllergies } from '../store/actions/filters';
 
-const FilterSwitch = (props) => {
-	return (
-		<View style={styles.filterContainer}>
-			<Text>{props.label}</Text>
-			<Switch
-				trackColor={{ true: Colors.primaryColor, false: '' }}
-				thumbColor={Platform.OS === 'android' ? Colors.primaryColor : ''}
-				value={props.state}
-				onValueChange={props.onChange}
-			/>
-		</View>
-	);
-};
+const FiltersScreen = ({ navigation }) => {
+	const { allergies } = useAllergies();
+	const dispatch = useDispatch();
+	const activeFilters = useSelector((state) => state.activeFilters);
+	const [ chosenAllergies, setChosenAllergies ] = useState(activeFilters.allergies);
 
-const FiltersScreen = (props) => {
-	const [ isGlutenFree, setIsGlutenFree ] = useState(false);
-	const [ isLactoseFree, setIsLactoseFree ] = useState(false);
-	const [ isVegan, setIsVegan ] = useState(false);
-	const [ isVegetarian, setIsVegetarian ] = useState(false);
+	const onAllergyPressed = (allergy) => {
+		// Check if allergy is already in state
+		if (chosenAllergies.some((a) => a._id === allergy._id)) {
+			return setChosenAllergies((prevState) => prevState.filter((a) => a._id !== allergy._id));
+		}
+
+		return setChosenAllergies((prevState) => [ ...prevState, allergy ]);
+	};
+
+	const onSaveAllergiesPress = () => {
+		dispatch(saveAllergies(chosenAllergies));
+		return navigation.goBack();
+	};
 
 	return (
 		<View style={styles.screen}>
-			<Text style={styles.title}>Available Filters / Restrictions</Text>
-			<FilterSwitch label="Gluten-free" state={isGlutenFree} onChange={(newValue) => setIsGlutenFree(newValue)} />
-			<FilterSwitch
-				label="Lactose-free"
-				state={isLactoseFree}
-				onChange={(newValue) => setIsLactoseFree(newValue)}
-			/>
-			<FilterSwitch label="Vegan" state={isVegan} onChange={(newValue) => setIsVegan(newValue)} />
-			<FilterSwitch label="Vegetarian" state={isVegetarian} onChange={(newValue) => setIsVegetarian(newValue)} />
+			<TitleText style={styles.title}>Wybierz niechciane allergeny</TitleText>
+			<View style={styles.contentWrapper}>
+				<ScrollView>
+					<AddAllergyContainer
+						allergies={allergies}
+						selectedAllergies={chosenAllergies}
+						onAllergyPressed={onAllergyPressed}
+					/>
+				</ScrollView>
+			</View>
+			<CustomButton text="Zapisz filtry" onPress={onSaveAllergiesPress} />
 		</View>
 	);
 };
@@ -42,19 +51,17 @@ export default FiltersScreen;
 const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
-		alignItems: 'center'
+		alignItems: 'center',
+		padding: 10
 	},
 	title: {
-		// fontFamily: 'open-sans-bold',
-		fontSize: 22,
+		fontSize: 24,
 		margin: 20,
-		textAlign: 'center'
+		textAlign: 'center',
+		color: Colors.primaryTitle
 	},
-	filterContainer: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		width: '80%',
-		marginVertical: 15
+	contentWrapper: {
+		flex: 1,
+		justifyContent: 'space-between'
 	}
 });

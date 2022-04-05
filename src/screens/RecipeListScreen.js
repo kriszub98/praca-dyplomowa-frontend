@@ -4,6 +4,7 @@ import { ScrollView, View, StyleSheet } from 'react-native';
 import RecipeCard from '../components/RecipeCard';
 import useRecipes from '../hooks/useRecipes';
 import TitleText from '../components/TitleText';
+import CustomButton from '../components/CustomButton';
 import Colors from '../constans/Colors';
 
 const RecipeListScreen = ({ navigation }) => {
@@ -11,6 +12,10 @@ const RecipeListScreen = ({ navigation }) => {
 
 	const goToDetails = (recipe) => {
 		navigation.navigate('RecipeDetail', { recipe });
+	};
+
+	const onChangeFiltersPress = () => {
+		return navigation.navigate('Filters');
 	};
 
 	if (errorMessage) {
@@ -33,6 +38,8 @@ const RecipeListScreen = ({ navigation }) => {
 
 	return (
 		<ScrollView>
+			{/* TODO: REDESIGN BUTTON CHANGE FILTERS */}
+			<CustomButton text="Zmień filtry" onPress={onChangeFiltersPress} />
 			{recipes.map((recipe) => (
 				<RecipeCard key={recipe._id} recipe={recipe} onPress={() => goToDetails(recipe)} />
 			))}
