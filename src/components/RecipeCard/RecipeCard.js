@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View, TouchableNativeFeedback, useWindowDimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
+import dayjs from 'dayjs';
 
 import CustomColors from '../../constans/Colors';
 import DefaultText from '../../components/DefaultText';
@@ -10,8 +10,7 @@ import AllergyContainer from '../../components/AllergyContainer';
 
 const RecipeCard = ({ recipe, onPress }) => {
 	const { height } = useWindowDimensions();
-
-	const navigation = useNavigation();
+	let dateToShow = dayjs(recipe.createdAt).format('DD.MM.YYYY HH:mm');
 
 	return (
 		<TouchableNativeFeedback useForeground={true} onPress={onPress}>
@@ -29,7 +28,7 @@ const RecipeCard = ({ recipe, onPress }) => {
 				<View style={styles.dateValidationRow}>
 					<View>
 						<DefaultText style={styles.secondaryText}>Dodał: {recipe.owner.login}</DefaultText>
-						<DefaultText style={styles.secondaryText}>Data dodania: {recipe.createdAt}</DefaultText>
+						<DefaultText style={styles.secondaryText}>Data dodania: {dateToShow}</DefaultText>
 					</View>
 					{recipe.isValidated && (
 						<View style={styles.validatedContainer}>
