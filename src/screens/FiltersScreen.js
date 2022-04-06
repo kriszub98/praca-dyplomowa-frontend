@@ -20,7 +20,6 @@ const FiltersScreen = ({ navigation }) => {
 		if (chosenAllergies.some((a) => a._id === allergy._id)) {
 			return setChosenAllergies((prevState) => prevState.filter((a) => a._id !== allergy._id));
 		}
-
 		return setChosenAllergies((prevState) => [ ...prevState, allergy ]);
 	};
 

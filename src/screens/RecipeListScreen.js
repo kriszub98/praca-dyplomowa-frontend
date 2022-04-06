@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
-import RecipeCard from '../components/RecipeCard';
 import useRecipes from '../hooks/useRecipes';
-import TitleText from '../components/TitleText';
-import CustomButton from '../components/CustomButton';
+import useInput from '../hooks/useInput';
 import Colors from '../constans/Colors';
+import RecipeCard from '../components/RecipeCard';
+import TitleText from '../components/TitleText';
+import SearchBar from '../components/SearchBar';
+import FiltersButton from '../components/FiltersButton';
 
 const RecipeListScreen = ({ navigation }) => {
+	const [ name, bindName, resetName ] = useInput('');
 	const { recipes, errorMessage, getRecipes } = useRecipes();
+	const activeFilters = useSelector((state) => state.activeFilters);
+
+	useLayoutEffect(
+		() => {
+			navigation.setOptions({
+				headerRight: () => <FiltersButton onPress={() => navigation.navigate('Filters')} />
+			});
+		},
+		[ navigation ]
+	);
+
+	useEffect(
+		() => {
+			return getRecipes(name, activeFilters.allergies);
+		},
+		[ name, activeFilters.allergies ]
+	);
 
 	const goToDetails = (recipe) => {
 		navigation.navigate('RecipeDetail', { recipe });
-	};
-
-	const onChangeFiltersPress = () => {
-		return navigation.navigate('Filters');
 	};
 
 	if (errorMessage) {
@@ -30,16 +47,19 @@ const RecipeListScreen = ({ navigation }) => {
 
 	if (recipes.length === 0) {
 		return (
-			<View style={styles.messageContainer}>
-				<TitleText style={styles.titleText}>Brak przepisów spełniających dane kryteria</TitleText>
-			</View>
+			<ScrollView>
+				<SearchBar {...bindName} placeholder="Nazwa przepisu..." />
+				<View style={styles.messageContainer}>
+					<TitleText style={styles.titleText}>Brak przepisów spełniających dane kryteria</TitleText>
+				</View>
+			</ScrollView>
 		);
 	}
 
 	return (
 		<ScrollView>
 			{/* TODO: REDESIGN BUTTON CHANGE FILTERS */}
-			<CustomButton text="Zmień filtry" onPress={onChangeFiltersPress} />
+			<SearchBar {...bindName} placeholder="Nazwa przepisu..." />
 			{recipes.map((recipe) => (
 				<RecipeCard key={recipe._id} recipe={recipe} onPress={() => goToDetails(recipe)} />
 			))}
@@ -49,8 +69,8 @@ const RecipeListScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
 	messageContainer: {
-		flex: 1,
-		justifyContent: 'center'
+		justifyContent: 'center',
+		paddingVertical: '70%'
 	},
 	titleText: {
 		color: Colors.primaryTitle,

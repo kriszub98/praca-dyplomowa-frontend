@@ -22,9 +22,9 @@ const SearchBar = ({ value, setValue, onEndEditing }) => {
 const styles = StyleSheet.create({
 	backgroundStyle: {
 		backgroundColor: 'white',
-		height: 50,
+		height: 45,
 		borderRadius: 5,
-		marginVertical: 10,
+		marginVertical: 8,
 		marginHorizontal: 6,
 		flexDirection: 'row',
 
@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
 		fontSize: 18
 	},
 	searchIconStyle: {
-		fontSize: 35,
+		fontSize: 18,
 		alignSelf: 'center',
-		marginHorizontal: 10
+		marginHorizontal: 8
 	}
 });
 

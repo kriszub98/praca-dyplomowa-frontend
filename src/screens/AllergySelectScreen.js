@@ -12,10 +12,10 @@ import allergyBackend from '../api/allergyBackend';
 import { updateUser } from '../store/actions/auth';
 
 const AllergySelectScreen = () => {
-	const { allergies } = useAllergies();
-	const [ chosenAllergies, setChosenAllergies ] = useState([]);
 	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
+	const { allergies } = useAllergies();
+	const [ chosenAllergies, setChosenAllergies ] = useState(auth.user.allergies);
 	const navigation = useNavigation();
 
 	const onAllergyPressed = (allergy) => {
