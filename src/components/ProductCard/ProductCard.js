@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View, TouchableNativeFeedback, useWindowDimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import dayjs from 'dayjs';
 
 import CustomColors from '../../constans/Colors';
 import DefaultText from '../../components/DefaultText';
@@ -8,24 +8,28 @@ import TitleText from '../../components/TitleText';
 
 const RecipeCard = ({ product, onPress }) => {
 	const { height } = useWindowDimensions();
+	let dateToShow = dayjs(product.createdAt).format('DD.MM.YYYY HH:mm');
 
 	return (
 		<TouchableNativeFeedback useForeground={true} onPress={onPress}>
 			<View style={styles.container}>
-				<View style={styles.dateValidationRow}>
-					<View>
-						<DefaultText style={styles.secondaryText}>Dodał: {product.owner.login}</DefaultText>
-						{/* TODO: <DefaultText style={styles.secondaryText}>Data dodania: {product.createdAt}</DefaultText> */}
-					</View>
-				</View>
-
+				{/* Name and description */}
 				<View style={styles.infoContainer}>
 					<TitleText style={styles.title}>{product.name}</TitleText>
 					<DefaultText style={styles.description}>{product.description}</DefaultText>
 				</View>
 
+				{/* Allergies */}
 				<View style={styles.allergyContainer}>
 					{product.allergies.map((a) => <TitleText key={a._id}>{a.shortName}</TitleText>)}
+				</View>
+
+				{/* Author and timestamp */}
+				<View style={styles.dateValidationRow}>
+					<View>
+						<DefaultText style={styles.secondaryText}>Dodał: {product.owner.login}</DefaultText>
+						<DefaultText style={styles.secondaryText}>Data dodania: {dateToShow}</DefaultText>
+					</View>
 				</View>
 			</View>
 		</TouchableNativeFeedback>

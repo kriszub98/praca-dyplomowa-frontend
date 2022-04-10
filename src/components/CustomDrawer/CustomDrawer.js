@@ -58,23 +58,23 @@ const CustomDrawer = (props) => {
 			</DrawerContentScrollView>
 
 			{/* Bottom Drawer */}
-			<View style={styles.bottomDrawerContainer}>
-				<TouchableNativeFeedback onPress={() => props.navigation.navigate('AllergySelect')}>
-					<View style={styles.bottomLinkWrapper}>
-						<MaterialCommunityIcons size={22} color={Colors.primaryTitle} name="cog" />
-						<DefaultText style={styles.bottomLinkText}>Ustawienia</DefaultText>
-					</View>
-				</TouchableNativeFeedback>
+			{auth.isLogged && (
+				<View style={styles.bottomDrawerContainer}>
+					<TouchableNativeFeedback onPress={() => props.navigation.navigate('AllergySelect')}>
+						<View style={styles.bottomLinkWrapper}>
+							<MaterialCommunityIcons size={22} color={Colors.primaryTitle} name="cog" />
+							<DefaultText style={styles.bottomLinkText}>Ustawienia</DefaultText>
+						</View>
+					</TouchableNativeFeedback>
 
-				{auth.isLogged && (
 					<TouchableNativeFeedback onPress={onLogoutPress}>
 						<View style={styles.bottomLinkWrapper}>
 							<MaterialCommunityIcons size={22} color={Colors.primaryTitle} name="logout" />
 							<DefaultText style={styles.bottomLinkText}>Wyloguj</DefaultText>
 						</View>
 					</TouchableNativeFeedback>
-				)}
-			</View>
+				</View>
+			)}
 		</View>
 	);
 };
