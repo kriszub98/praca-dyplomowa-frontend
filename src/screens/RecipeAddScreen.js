@@ -84,7 +84,7 @@ const ProductAddScreen = ({ route }) => {
 	};
 
 	const onSearchProductPress = () => {
-		navigation.navigate('SearchProducts');
+		return navigation.navigate('SearchProducts');
 	};
 
 	const resetForm = () => {

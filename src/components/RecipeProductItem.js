@@ -24,14 +24,21 @@ const RecipeProductItem = ({ product, index, amount, removeProduct, editProductA
 		<View style={styles.wrapper}>
 			{/* Product Data */}
 			<View style={styles.productContainer}>
-				<TitleText style={styles.title}>{product.name}</TitleText>
-
-				<TitleText>Alergeny</TitleText>
-				<View style={styles.allergyWrapper}>
-					<View style={styles.allergyContainer}>
-						<DefaultText>{product.allergies[0].name}</DefaultText>
-					</View>
+				<View style={{ marginBottom: 8 }}>
+					<TitleText style={styles.title}>{product.name}</TitleText>
 				</View>
+				{/* Allergies */}
+				{product.allergies &&
+				product.allergies.length > 0 && (
+					<View>
+						<TitleText>Alergeny</TitleText>
+						<View style={styles.allergyWrapper}>
+							<View style={styles.allergyContainer}>
+								<DefaultText>{product.allergies[0].name}</DefaultText>
+							</View>
+						</View>
+					</View>
+				)}
 			</View>
 
 			{/* Amount Data */}

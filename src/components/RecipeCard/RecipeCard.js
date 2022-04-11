@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View, TouchableNativeFeedback, useWindowDimensions } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 
 import CustomColors from '../../constans/Colors';
@@ -32,7 +32,7 @@ const RecipeCard = ({ recipe, onPress }) => {
 					</View>
 					{recipe.isValidated && (
 						<View style={styles.validatedContainer}>
-							<AntDesign name="checkcircleo" size={16} color={CustomColors.validatedText} />
+							<MaterialIcons name="verified" size={16} color={CustomColors.validatedText} />
 							<TitleText style={styles.validatedText}>Zweryfikowane</TitleText>
 						</View>
 					)}

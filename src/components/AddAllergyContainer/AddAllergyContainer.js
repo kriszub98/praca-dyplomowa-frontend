@@ -4,7 +4,7 @@ import AllergyItem from './AllergyItem';
 
 const AddAllergyContainer = ({ allergies, onAllergyPressed, selectedAllergies }) => {
 	let styledAllergies = allergies.map((allergy) => {
-		let isSelected = selectedAllergies.some((a) => a._id === allergy._id);
+		let isSelected = selectedAllergies ? selectedAllergies.some((a) => a._id === allergy._id) : false;
 
 		return (
 			<AllergyItem

@@ -21,8 +21,13 @@ const Product = ({ product, onPress }) => {
 		<Pressable style={productStyles.wrapper} onPress={onPress}>
 			<View>
 				<TitleText style={productStyles.title}>{product.name}</TitleText>
-				<TitleText style={productStyles.secondaryText}>Alergeny:</TitleText>
-				<View style={productStyles.allergyWrapper}>{allergies}</View>
+				{allergies &&
+				allergies.length > 0 && (
+					<View>
+						<TitleText style={productStyles.secondaryText}>Alergeny:</TitleText>
+						<View style={productStyles.allergyWrapper}>{allergies}</View>
+					</View>
+				)}
 			</View>
 		</Pressable>
 	);

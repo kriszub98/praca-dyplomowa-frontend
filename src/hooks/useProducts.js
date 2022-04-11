@@ -5,16 +5,16 @@ const useProducts = () => {
 	const [ products, setProducts ] = useState([]);
 	const [ errorMessage, setErrorMessage ] = useState('');
 
-	const getProducts = async () => {
+	const getProducts = async (name = '') => {
 		try {
-			const results = await allergyBackend.get('/products');
+			const results = await allergyBackend.get(`/products?name=${name}`);
 			setProducts(results.data);
 		} catch (error) {
 			return setErrorMessage(error.response.data.error);
 		}
 	};
 
-	const addProduct = async (name, description, token, allergies) => {
+	const addProduct = async (name, description, photo, token, allergies) => {
 		try {
 			const result = await allergyBackend.post(
 				'/products',
@@ -27,7 +27,21 @@ const useProducts = () => {
 					headers: { Authorization: `Bearer ${token}` }
 				}
 			);
-			console.log(result); // TODO: USUŃ KOMENTY
+
+			if (photo) {
+				let productId = result.data._id;
+				let formData = new FormData();
+				formData.append('photo', {
+					uri: photo,
+					name: 'image.jpg',
+					type: 'image/jpeg'
+				});
+				await allergyBackend.post(`/products/${productId}/photo`, formData, {
+					headers: {
+						Authorization: `Bearer ${token}`
+					}
+				});
+			}
 		} catch (error) {
 			console.log(error.response.data.error);
 			return setErrorMessage(error.response.data.error);

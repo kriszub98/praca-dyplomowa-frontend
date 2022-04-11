@@ -7,7 +7,7 @@ const useRecipes = () => {
 
 	// TODO: One function that takes selectedAllergies as argument to filter them inside get
 
-	const getRecipes = async (name, allergies) => {
+	const getRecipes = async (name = '', allergies = []) => {
 		try {
 			const results = await allergyBackend.post(`/recipes/filtered`, { name, allergies });
 			setRecipes(results.data);

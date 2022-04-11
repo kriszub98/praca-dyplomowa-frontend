@@ -1,7 +1,8 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Image } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import * as ImagePicker from 'expo-image-picker';
 
 import useAllergies from '../hooks/useAllergies';
 import useProducts from '../hooks/useProducts';
@@ -20,15 +21,38 @@ const ProductAddScreen = () => {
 	const [ name, bindName, resetName ] = useInput('');
 	const [ description, bindDescription, resetDescription ] = useInput('');
 	const [ chosenAllergies, setChosenAllergies ] = useState([]);
+	const [ image, setImage ] = useState(null);
 
 	const navigation = useNavigation();
 
+	const pickImage = async () => {
+		// No permissions request is necessary for launching the image library
+		const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+		if (status !== 'granted') {
+			return console.log('Brak uprawnień do kamery!');
+		}
+
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			allowsEditing: true,
+			aspect: [ 4, 3 ],
+			quality: 1
+		});
+
+		console.log(result);
+
+		if (!result.cancelled) {
+			setImage(result.uri);
+		}
+	};
+
 	const onSubmitPressed = () => {
-		addProduct(name, description, auth.token, chosenAllergies);
+		addProduct(name, description, image, auth.token, chosenAllergies);
 		resetName();
 		resetDescription();
-		// TODO: Zmień redirecta
-		return navigation.navigate('ProductList');
+		setChosenAllergies([]);
+		setImage(null);
+		return navigation.navigate('ProductList', { action: 'changeData' });
 	};
 
 	const onAllergyPressed = (allergy) => {
@@ -45,11 +69,18 @@ const ProductAddScreen = () => {
 			<View style={styles.root}>
 				<TitleText style={styles.title}>Dodawanie produktu</TitleText>
 				<CustomInput placeholder="Nazwa produktu" {...bindName} />
-				<CustomInput placeholder="Opis produktu" {...bindDescription} />
+				<CustomInput placeholder="Opis produktu" {...bindDescription} multiline />
 				{/* TODO: Zmien na CustomTextArea */}
 
 				<TitleText style={styles.allergenText}>Alergeny:</TitleText>
-				<AddAllergyContainer allergies={allergies} onAllergyPressed={onAllergyPressed} />
+				<AddAllergyContainer
+					allergies={allergies}
+					selectedAllergies={chosenAllergies}
+					onAllergyPressed={onAllergyPressed}
+				/>
+
+				<CustomButton onPress={pickImage} text="Wybierz zdjęcie" />
+				{image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
 				<CustomButton onPress={onSubmitPressed} text="Dodaj produkt" />
 			</View>
 		</ScrollView>
